@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ONAIR</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Exo+2:200i"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /* Base font size */
+        font-size: 10px;
+
+        /* Set neon color */
+        --neon-text-color: rgb(247, 0, 0);
+        --neon-border-color: rgb(0, 128, 247);
+      }
+
+      button {
+        background: transparent;
+        cursor: pointer;
+      }
+
+      #sign {
+        font-family: "Exo 2";
+        font-size: 3rem;
+        font-weight: 200;
+        font-style: italic;
+        color: rgba(255, 148, 148, 0.384);
+        padding: 3rem 4rem;
+        border: 0.2rem solid rgba(2, 141, 255, 0.233);
+        border-radius: 1rem;
+        text-transform: uppercase;
+      }
+
+      .onair {
+        color: #fff !important;
+        border: 0.2rem solid #fff !important;
+        animation: flicker 10.5s infinite alternate;
+      }
+      @keyframes flicker {
+        0%,
+        19%,
+        21%,
+        23%,
+        25%,
+        54%,
+        56%,
+        100% {
+          text-shadow: -0.4rem -0.2rem 2rem #fff, 0.2rem 0.2rem 1rem #fff,
+            0 0 2rem var(--neon-text-color), 0 0 4rem var(--neon-text-color),
+            0 0 6rem var(--neon-text-color), 0 0 8rem var(--neon-text-color),
+            0 0 10rem var(--neon-text-color);
+          box-shadow: 0 0 0.5rem #fff, inset 0 0 0.5rem #fff,
+            0 0 2rem var(--neon-border-color),
+            inset 0 0 2rem var(--neon-border-color),
+            0 0 4rem var(--neon-border-color),
+            inset 0 0 4rem var(--neon-border-color);
+        }
+        20%,
+        24%,
+        55% {
+          text-shadow: none;
+          box-shadow: none;
+        }
+      }
+      .parent {
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        background: #111;
+      }
+    </style>
+  </head>
+  <body class="parent">
+    <div>
+      <button id="sign" onclick="buttonClick()">ONAIR</button>
+    </div>
+    <script>
+      // const URL = "http://localhost:5000/mock.json"
+      const URL = "http://192.168.10.131";
+      window.onload = async () => {
+        fetch(URL)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            if (data.status === 0) {
+              document.getElementById("sign").classList.remove("onair");
+            } else {
+              document.getElementById("sign").classList.add("onair");
+            }
+          });
+      };
+
+      function buttonClick() {
+        fetch(`${URL}/toggle`)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            if (data.status === 0) {
+              document.getElementById("sign").classList.remove("onair");
+            } else {
+              document.getElementById("sign").classList.add("onair");
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
