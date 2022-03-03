@@ -1,0 +1,23 @@
+{
+  "name": "Google Meet online notifier",
+  "description": "This extension is notifier via HTTP if opening Google Meet.",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "icons": {
+    "16": "imgs/onair16.png",
+    "48": "imgs/onair48.png",
+    "128": "imgs/onair128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "imgs/icon16.png",
+      "48": "imgs/icon48.png",
+      "128": "imgs/icon128.png"
+    }
+  },
+  "permissions": ["tabs"],
+  "host_permissions": ["http://192.168.10.131/"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
