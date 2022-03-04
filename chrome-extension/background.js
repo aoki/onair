@@ -1,6 +1,7 @@
 const URL = "http://192.168.10.131";
 
-const intervalId = setInterval(() => {
+chrome.alarms.create({ delayInMinutes: 0, periodInMinutes: 1 });
+chrome.alarms.onAlarm.addListener(() => {
   chrome.tabs.query({ url: "https://meet.google.com/*" }, (tabs) => {
     if (tabs.length === 0) {
       fetch(`${URL}/l`).then((res) => {
@@ -35,5 +36,4 @@ const intervalId = setInterval(() => {
       });
     });
   });
-}, 60000);
-console.log(`Interval ID: ${intervalId}`);
+});

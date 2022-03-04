@@ -15,7 +15,7 @@
       "128": "imgs/icon128.png"
     }
   },
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "alarms"],
   "host_permissions": ["http://192.168.10.131/"],
   "background": {
     "service_worker": "background.js"
