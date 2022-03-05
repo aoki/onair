@@ -8,12 +8,15 @@ const registerAlarm = () => {
 };
 
 const setEnabledIcon = () => {
-  chrome.action.setIcon({
-    path: {
-      16: "imgs/icon16.png",
-      48: "imgs/icon48.png",
-      128: "imgs/icon128.png",
-    },
+  chrome.storage.local.get("isDarkIcon", (v) => {
+    const theme = v.isDarkIcon ? "dark" : "light";
+    chrome.action.setIcon({
+      path: {
+        16: `imgs/icon-${theme}16.png`,
+        48: `imgs/icon-${theme}48.png`,
+        128: `imgs/icon-${theme}128.png`,
+      },
+    });
   });
 };
 
@@ -28,12 +31,15 @@ const setOnairIcon = () => {
 };
 
 const setDisabledIcon = () => {
-  chrome.action.setIcon({
-    path: {
-      16: "imgs/disabled16.png",
-      48: "imgs/disabled48.png",
-      128: "imgs/disabled128.png",
-    },
+  chrome.storage.local.get("isDarkIcon", (v) => {
+    const theme = v.isDarkIcon ? "dark" : "light";
+    chrome.action.setIcon({
+      path: {
+        16: `imgs/disabled-${theme}16.png`,
+        48: `imgs/disabled-${theme}48.png`,
+        128: `imgs/disabled-${theme}128.png`,
+      },
+    });
   });
 };
 
@@ -43,20 +49,20 @@ chrome.alarms.onAlarm.addListener((e) => {
     if (tabs.length === 0) {
       fetch(`${URL}/l`).then((res) => {
         return res.json().then((data) => {
-          console.log(data);
+          // console.log(data);
           setEnabledIcon();
         });
       });
       return;
     }
 
-    tabs.forEach((t) => {
-      console.log(`Window ID: ${t.windowId}, Tab ID: ${t.id}`);
-    });
+    // tabs.forEach((t) => {
+    //   console.log(`Window ID: ${t.windowId}, Tab ID: ${t.id}`);
+    // });
 
     fetch(`${URL}/h`).then((res) => {
       return res.json().then((data) => {
-        console.log(data);
+        // console.log(data);
         setOnairIcon();
       });
     });
@@ -67,11 +73,11 @@ chrome.action.onClicked.addListener(() => {
   chrome.alarms.get("onair", (alarm) => {
     if (alarm) {
       chrome.alarms.clear("onair", (isStop) => {
-        console.log(`Stop an alarm: ${alarm.name}`);
+        // console.log(`Stop an alarm: ${alarm.name}`);
         setDisabledIcon();
       });
     } else {
-      console.log(`Register an alarm`);
+      // console.log(`Register an alarm`);
       setEnabledIcon();
       registerAlarm();
     }

@@ -10,12 +10,16 @@
   },
   "action": {
     "default_icon": {
-      "16": "imgs/icon16.png",
-      "48": "imgs/icon48.png",
-      "128": "imgs/icon128.png"
+      "16": "imgs/icon-dark16.png",
+      "48": "imgs/icon-dark48.png",
+      "128": "imgs/icon-dark128.png"
     }
   },
-  "permissions": ["tabs", "alarms"],
+  "options_ui": {
+    "page": "preference.html",
+    "browser_style": true
+  },
+  "permissions": ["tabs", "alarms", "storage"],
   "host_permissions": ["http://192.168.10.131/"],
   "background": {
     "service_worker": "background.js"
